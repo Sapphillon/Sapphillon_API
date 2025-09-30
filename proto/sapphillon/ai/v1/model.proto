@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package sapphillon.ai.v1;
 
-import "sapphillon/ai/v1/provider.proto";
-
 // Models represents a configured Large Language Model.
 message Models {
   // The unique resource name of the model.
@@ -19,6 +17,9 @@ message Models {
   // Optional field to provide additional context about the model.
   optional string description = 3;
 
-  // The provider associated with this model.
-  sapphillon.ai.v1.Provider provider = 4;
+  reserved 4;
+  reserved "provider";
+
+  // The name of the provider associated with this model.
+  string provider_name = 5;
 }
