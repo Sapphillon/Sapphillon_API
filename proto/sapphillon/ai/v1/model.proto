@@ -18,10 +18,10 @@ message Models {
   // A description of the model.
   // Optional field to provide additional context about the model.
   optional string description = 3;
-  
+
   reserved 4;
   reserved "provider";
-  
+
   // The name of the provider associated with this model.
   string provider_name = 5;
 }
