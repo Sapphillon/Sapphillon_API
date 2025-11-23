@@ -43,11 +43,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ steps.tag_version.outputs.new_tag }}
-          release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-          generate_release_notes: ${{ github.event.inputs.generate-notes }}
-          prerelease: ${{ github.event.inputs.prerelease }}
+        run: |
+          gh release create "${{ steps.tag_version.outputs.new_tag }}" \
+            --title "Release ${{ steps.tag_version.outputs.new_tag }}" \
+            ${{ github.event.inputs.generate-notes && '--generate-notes' || '' }} \
+            ${{ github.event.inputs.prerelease && '--prerelease' || '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
