@@ -6,6 +6,7 @@ on:
       bump-type:
         description: 'Bump type'
         required: true
+        type: choice
         options:
           - major
           - minor
