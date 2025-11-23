@@ -108,7 +108,7 @@ message FixWorkflowResponse {
   google.rpc.Status status = 3;
 }
 
-// Request to run a workflow by ID or by providing a definition.
+// Request to run a workflow by ID.
 message RunWorkflowRequest {
   // Run a workflow by its ID and code ID.
   WorkflowSourceById by_id = 1;
