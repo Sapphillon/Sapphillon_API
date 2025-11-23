@@ -1,0 +1,53 @@
+// Copyright 2025 Yuta Takahashi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package sapphillon.v1;
+
+import "google/rpc/status.proto";
+import "sapphillon/v1/plugin.proto";
+
+// Service for managing plugins.
+// Allows clients to list and query available plugin packages
+// that can be used in workflows.
+service PluginService {
+  // Lists all available plugin packages.
+  // Returns a paginated list of plugin packages that can be installed or used.
+  rpc ListPlugins(ListPluginsRequest) returns (ListPluginsResponse);
+}
+
+// Request message for listing plugins.
+message ListPluginsRequest {
+  // The maximum number of plugins to return.
+  // The service may return fewer than this value.
+  // If zero, the server will pick an appropriate default.
+  int32 page_size = 1;
+
+  // A page token, received from a previous `ListPlugins` call.
+  // Provide this to retrieve the subsequent page.
+  string page_token = 2;
+}
+
+// Response message for listing plugins.
+message ListPluginsResponse {
+  // A list of available plugin packages.
+  repeated PluginPackage plugins = 1;
+
+  // A token to retrieve the next page of results.
+  // If this field is empty, there are no more results.
+  string next_page_token = 2;
+
+  google.rpc.Status status = 3;
+}
