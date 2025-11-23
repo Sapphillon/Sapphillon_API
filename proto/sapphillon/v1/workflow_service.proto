@@ -110,12 +110,10 @@ message FixWorkflowResponse {
 
 // Request to run a workflow by ID or by providing a definition.
 message RunWorkflowRequest {
-  oneof source {
-    // Run a workflow by its ID and code ID.
-    WorkflowSourceById by_id = 1;
-    // Run a workflow by providing its definition.
-    sapphillon.v1.Workflow workflow_definition = 2;
-  }
+  // Run a workflow by its ID and code ID.
+  WorkflowSourceById by_id = 1;
+  reserved 2;
+  reserved "workflow_definition";
 }
 
 // Specifies a workflow to run using its ID and code ID.
