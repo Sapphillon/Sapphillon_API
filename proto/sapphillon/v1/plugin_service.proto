@@ -19,11 +19,9 @@ package sapphillon.v1;
 import "google/rpc/status.proto";
 import "sapphillon/v1/plugin.proto";
 
-/**
- * Service for managing plugins.
- * Allows clients to list and query available plugin packages
- * that can be used in workflows.
- */
+// Service for managing plugins.
+// Allows clients to list and query available plugin packages
+// that can be used in workflows.
 service PluginService {
   // Lists all available plugin packages.
   // Returns a paginated list of plugin packages that can be installed or used.
