@@ -50,4 +50,4 @@ jobs:
             ${{ github.event.inputs.generate-notes && '--generate-notes' || '' }} \
             ${{ github.event.inputs.prerelease && '--prerelease' || '' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
