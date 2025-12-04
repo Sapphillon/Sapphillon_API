@@ -59,16 +59,16 @@ message FunctionParameter {
 //       { name: "channelId", type: "string", description: "Target channel ID" },
 //       { name: "message", type: "string", description: "Message content" }
 //     ]
-//     returns: { name: "result", type: "boolean", description: "True if sent successfully" }
+//     returns: [{ name: "result", type: "boolean", description: "True if sent successfully" }]
 //   }
 message FunctionDefine {
   // The list of function parameters (arguments).
   // Order should match the function signature.
   repeated FunctionParameter parameters = 1;
 
-  // The return value information.
-  // Optional: may be empty for void functions.
-  FunctionParameter returns = 2;
+  // The return value(s) information. Optional: may be empty for void functions.
+  // Multiple return values are supported (e.g., for tuple-like returns).
+  repeated FunctionParameter returns = 2;
 }
 
 // Describes a callable function exposed by a plugin.
@@ -89,7 +89,7 @@ message FunctionDefine {
 //     permissions: [{ permission_type: PERMISSION_TYPE_EXECUTE, resource: ["channels/general"] }]
 //     function_define: {
 //       parameters: [{ name: "channelId", type: "string", description: "Target channel" }]
-//       returns: { name: "success", type: "boolean", description: "True if sent" }
+//       returns: [{ name: "success", type: "boolean", description: "True if sent" }]
 //     }
 //   }
 message PluginFunction {
