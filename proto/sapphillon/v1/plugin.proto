@@ -19,6 +19,58 @@ package sapphillon.v1;
 import "google/protobuf/timestamp.proto";
 import "sapphillon/v1/permission.proto";
 
+// Represents a single parameter (argument or return value) of a function.
+// Stores the variable name, type, and description similar to JSDoc @param or @returns.
+//
+// Fields:
+// - name: The variable name of the parameter.
+// - type: The type of the parameter (e.g., "string", "number", "object").
+// - description: A short description of what the parameter represents.
+//
+// Example:
+//   FunctionParameter {
+//     name: "userId"
+//     type: "string"
+//     description: "The unique identifier of the user"
+//   }
+message FunctionParameter {
+  // The variable name of the parameter.
+  // Example: "userId", "message", "options".
+  string name = 1;
+
+  // The type of the parameter.
+  // Example: "string", "number", "boolean", "object", "Array<string>".
+  string type = 2;
+
+  // A short description of what the parameter represents.
+  string description = 3;
+}
+
+// Represents the function definition including JSDoc-style documentation.
+// Stores the function parameters and return value information.
+//
+// Fields:
+// - parameters: The list of function parameters (arguments).
+// - returns: The return value information.
+//
+// Example:
+//   FunctionDefine {
+//     parameters: [
+//       { name: "channelId", type: "string", description: "Target channel ID" },
+//       { name: "message", type: "string", description: "Message content" }
+//     ]
+//     returns: { name: "result", type: "boolean", description: "True if sent successfully" }
+//   }
+message FunctionDefine {
+  // The list of function parameters (arguments).
+  // Order should match the function signature.
+  repeated FunctionParameter parameters = 1;
+
+  // The return value information.
+  // Optional: may be empty for void functions.
+  FunctionParameter returns = 2;
+}
+
 // Describes a callable function exposed by a plugin.
 // A function declares its purpose, identity, and required permissions for execution.
 //
@@ -27,6 +79,7 @@ import "sapphillon/v1/permission.proto";
 // - function_name: Human-friendly name suitable for UIs.
 // - description: Summary of what the function does and typical use cases.
 // - permissions: Permissions required for the caller to execute this function.
+// - function_define: JSDoc-style definition with parameters and return value.
 //
 // Example:
 //   PluginFunction {
@@ -34,6 +87,10 @@ import "sapphillon/v1/permission.proto";
 //     function_name: "Send Notification"
 //     description: "Sends a message to a configured channel"
 //     permissions: [{ permission_type: PERMISSION_TYPE_EXECUTE, resource: ["channels/general"] }]
+//     function_define: {
+//       parameters: [{ name: "channelId", type: "string", description: "Target channel" }]
+//       returns: { name: "success", type: "boolean", description: "True if sent" }
+//     }
 //   }
 message PluginFunction {
   // Stable unique identifier for the function.
@@ -51,11 +108,13 @@ message PluginFunction {
   // Use Permission.resource to scope to specific entities as needed.
   repeated Permission permissions = 4;
 
-  // Arguments of the function, described in JSON Schema format.
-  string arguments = 5;
+  // Reserved for backward compatibility with previous arguments and returns fields.
+  reserved 5, 6;
+  reserved "arguments", "returns";
 
-  // Return value of the function, described in JSON Schema format.
-  string returns = 6;
+  // JSDoc-style function definition with parameters and return value.
+  // Contains structured information about function arguments and return type.
+  FunctionDefine function_define = 7;
 }
 
 // Represents a plugin package that can be installed into the platform.
