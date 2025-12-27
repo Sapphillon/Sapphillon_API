@@ -2,6 +2,11 @@ name: Check Protocol Buffer
 
 on:
   workflow_dispatch:
+    inputs:
+      ai_endpoint_id:
+        description: 'AI Endpoint ID'
+        required: false
+        type: string
   push:
     paths:
       - 'proto/**'
@@ -31,3 +36,7 @@ jobs:
 
       - name: Check Protocol Buffer format (diff)
         run: buf format proto -d --error-format=github-actions
+
+      - name: Echo AI Endpoint ID
+        if: github.event.inputs.ai_endpoint_id != ''
+        run: echo "AI Endpoint ID: ${{ github.event.inputs.ai_endpoint_id }}"
