@@ -68,6 +68,8 @@ message InstallPluginRequest {
 message InstallPluginResponse {
   // The installed plugin package.
   PluginPackage plugin = 1;
+
+  google.rpc.Status status = 2;
 }
 
 // Request message for uninstalling a plugin.
@@ -77,4 +79,6 @@ message UninstallPluginRequest {
 }
 
 // Response message for uninstalling a plugin.
-message UninstallPluginResponse {}
+message UninstallPluginResponse {
+  google.rpc.Status status = 1;
+}
