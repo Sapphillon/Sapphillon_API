@@ -26,6 +26,12 @@ service PluginService {
   // Lists all available plugin packages.
   // Returns a paginated list of plugin packages that can be installed or used.
   rpc ListPlugins(ListPluginsRequest) returns (ListPluginsResponse);
+
+  // Installs a plugin from a given URI.
+  rpc InstallPlugin(InstallPluginRequest) returns (InstallPluginResponse);
+
+  // Uninstalls a plugin by its package ID.
+  rpc UninstallPlugin(UninstallPluginRequest) returns (UninstallPluginResponse);
 }
 
 // Request message for listing plugins.
@@ -51,3 +57,24 @@ message ListPluginsResponse {
 
   google.rpc.Status status = 3;
 }
+
+// Request message for installing a plugin.
+message InstallPluginRequest {
+  // The URI of the plugin to install.
+  string uri = 1;
+}
+
+// Response message for installing a plugin.
+message InstallPluginResponse {
+  // The installed plugin package.
+  PluginPackage plugin = 1;
+}
+
+// Request message for uninstalling a plugin.
+message UninstallPluginRequest {
+  // The package ID of the plugin to uninstall.
+  string package_id = 1;
+}
+
+// Response message for uninstalling a plugin.
+message UninstallPluginResponse {}
