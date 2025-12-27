@@ -28,9 +28,15 @@ service PluginService {
   rpc ListPlugins(ListPluginsRequest) returns (ListPluginsResponse);
 
   // Installs a plugin from a given URI.
+  // This API is experimental and is likely to change.
+  // TODO:
+  // - Repository support
+  // - Checksum support
+  // - Certificate support
   rpc InstallPlugin(InstallPluginRequest) returns (InstallPluginResponse);
 
   // Uninstalls a plugin by its package ID.
+  // This API is experimental and is likely to change.
   rpc UninstallPlugin(UninstallPluginRequest) returns (UninstallPluginResponse);
 }
 
