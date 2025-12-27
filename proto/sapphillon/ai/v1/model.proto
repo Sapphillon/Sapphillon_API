@@ -22,4 +22,8 @@ message Models {
 
   // The name of the provider associated with this model.
   string provider_name = 5;
+
+  // The priority of the model.
+  // Higher numbers indicate higher priority.
+  optional uint32 priority = 6;
 }
