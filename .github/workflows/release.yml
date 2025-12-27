@@ -22,6 +22,10 @@ on:
         required: true
         type: boolean
         default: false
+      ai-endpoint-id:
+        description: 'AI Endpoint ID'
+        required: false
+        type: string
 
 jobs:
   release:
