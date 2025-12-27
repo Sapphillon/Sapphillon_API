@@ -67,6 +67,11 @@ message GenerateWorkflowRequest {
   // Example: "Check the weather, and if it's raining, send me a notification."
   // Behavior: Required; must be non-empty.
   string prompt = 1;
+
+  // The name of the model to use for generation.
+  // Format: "models/{model_id}"
+  // If not specified, the default model will be used.
+  string model_name = 2;
 }
 
 // Server-streamed response containing the generated workflow definition.
