@@ -70,7 +70,7 @@ message GenerateWorkflowRequest {
 
   // The name of the model to use for generation.
   // Format: "models/{model_id}"
-  // If not specified, the default model will be used.
+  // Behavior: Optional; if not specified, the default model will be used.
   string model_name = 2;
 }
 
