@@ -28,15 +28,53 @@ service PluginService {
   rpc ListPlugins(ListPluginsRequest) returns (ListPluginsResponse);
 
   // Installs a plugin from a given URI.
+  //
   // This API is experimental and is likely to change.
+  //
   // TODO:
   // - Repository support
   // - Checksum support
   // - Certificate support
+  //
+  // Security considerations:
+  // - Authentication and authorization: Callers must be authenticated and
+  //   authorized to install plugins. This is typically an admin-only operation.
+  // - Plugin signature verification: Implementations MUST verify plugin
+  //   signatures before installation (see TODO for certificate support).
+  // - Sandboxing: Installed plugins SHOULD be isolated/sandboxed to prevent
+  //   unauthorized access to system resources.
+  //
+  // Error conditions:
+  // - INVALID_ARGUMENT: The URI is malformed, uses a disallowed scheme, or
+  //   the plugin package is invalid.
+  // - ALREADY_EXISTS: A plugin with the same package ID is already installed.
+  // - PERMISSION_DENIED: The caller does not have permission to install plugins.
+  // - FAILED_PRECONDITION: Version conflicts or dependency issues prevent
+  //   installation.
+  //
+  // On error, the `status` field of `InstallPluginResponse` is populated with
+  // a corresponding `google.rpc.Status`.
   rpc InstallPlugin(InstallPluginRequest) returns (InstallPluginResponse);
 
   // Uninstalls a plugin by its package ID.
+  //
   // This API is experimental and is likely to change.
+  //
+  // Security considerations:
+  // - Authentication and authorization: Callers must be authenticated and
+  //   authorized to uninstall plugins. This is typically an admin-only operation.
+  //
+  // Error conditions:
+  // - NOT_FOUND: The specified `package_id` does not correspond to any
+  //   installed plugin.
+  // - FAILED_PRECONDITION: The plugin is currently in use by one or more
+  //   active workflows and cannot be uninstalled until those workflows are
+  //   updated or terminated.
+  // - PERMISSION_DENIED: The caller does not have sufficient permission to
+  //   uninstall the plugin.
+  //
+  // On error, the `status` field of `UninstallPluginResponse` is populated
+  // with a corresponding `google.rpc.Status`.
   rpc UninstallPlugin(UninstallPluginRequest) returns (UninstallPluginResponse);
 }
 
@@ -67,20 +105,68 @@ message ListPluginsResponse {
 // Request message for installing a plugin.
 message InstallPluginRequest {
   // The URI of the plugin to install.
+  //
+  // Required. This field must not be empty.
+  //
+  // Security constraints:
+  // - Only HTTPS-based URIs are allowed (e.g. https://example.com/plugin.pkg).
+  //   Implementations MUST reject non-HTTPS schemes such as file://, http://,
+  //   ftp://, ssh://, and other potentially dangerous or untrusted schemes.
+  // - Servers SHOULD validate the host and path against an allowlist or
+  //   blocklist of trusted plugin sources (e.g. known repositories or domains)
+  //   before attempting to download or install the plugin.
+  // - Servers MUST enforce reasonable limits on the size of the downloaded
+  //   plugin package and on download time to mitigate resource exhaustion
+  //   (e.g. maximum bytes, timeouts, and concurrent download limits).
+  // - If a custom or repository-specific scheme is supported, its semantics
+  //   and security properties SHOULD be documented and validated similarly.
+  //
+  // If this field is empty or does not conform to the expected format/scheme,
+  // the server MUST fail the request and return an `INVALID_ARGUMENT` error
+  // in the `status` field of `InstallPluginResponse`.
   string uri = 1;
 }
 
 // Response message for installing a plugin.
 message InstallPluginResponse {
   // The installed plugin package.
+  //
+  // On success (`status.code == google.rpc.Code.OK`), this field contains
+  // the fully installed plugin package.
+  //
+  // On failure or partial installation (`status.code != OK`), this field
+  // MUST NOT be relied upon and should be treated as unset/undefined by
+  // clients. Implementations SHOULD leave this field empty in such cases.
   PluginPackage plugin = 1;
 
+  // Result of the install operation.
+  //
+  // - `status.code == OK`: the plugin was installed successfully and
+  //   `plugin` is populated with the installed package.
+  // - `status.code != OK`: the install failed or only partially completed.
+  //   In this case, clients MUST ignore `plugin`. Implementations MAY
+  //   use `status.details` to convey additional information about any
+  //   partial installation state (e.g., which step failed) rather than
+  //   encoding partial state in `plugin`.
   google.rpc.Status status = 2;
 }
 
 // Request message for uninstalling a plugin.
 message UninstallPluginRequest {
   // The package ID of the plugin to uninstall.
+  //
+  // Required. This must be the exact `package_id` of an installed plugin
+  // as returned by `ListPlugins` or `InstallPlugin`.
+  //
+  // If this field is empty or does not conform to the expected format, the
+  // server MUST fail the request and return an `INVALID_ARGUMENT` error in
+  // the `status` field of `UninstallPluginResponse`.
+  //
+  // If the specified package does not exist or is already uninstalled, the
+  // server MUST fail the request and return a `NOT_FOUND` error in the
+  // `status` field of `UninstallPluginResponse`. The operation is
+  // idempotent: repeated calls with the same `package_id` MUST NOT succeed
+  // if the plugin is not currently installed.
   string package_id = 1;
 }
 
