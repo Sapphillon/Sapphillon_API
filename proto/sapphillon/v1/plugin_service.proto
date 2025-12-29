@@ -163,10 +163,8 @@ message UninstallPluginRequest {
   // the `status` field of `UninstallPluginResponse`.
   //
   // If the specified package does not exist or is already uninstalled, the
-  // server MUST fail the request and return a `NOT_FOUND` error in the
-  // `status` field of `UninstallPluginResponse`. The operation is
-  // idempotent: repeated calls with the same `package_id` MUST NOT succeed
-  // if the plugin is not currently installed.
+  // server MUST return a `NOT_FOUND` error in the `status` field of
+  // `UninstallPluginResponse`.
   string package_id = 1;
 }
 
