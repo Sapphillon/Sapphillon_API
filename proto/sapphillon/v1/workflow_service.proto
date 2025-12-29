@@ -112,8 +112,14 @@ message FixWorkflowResponse {
 message RunWorkflowRequest {
   // Run a workflow by its ID and code ID.
   WorkflowSourceById by_id = 1;
+
   reserved 2;
   reserved "workflow_definition";
+
+  // Optional AI model name to use for this run.
+  // If not specified, the default model will be used.
+  // The name should match a model from `sapphillon.ai.v1.Models.name`.
+  optional string ai_model_name = 3;
 }
 
 // Specifies a workflow to run using its ID and code ID.
