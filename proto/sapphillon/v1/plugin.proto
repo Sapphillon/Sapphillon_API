@@ -95,6 +95,7 @@ message FunctionDefine {
 message PluginFunction {
   // Stable unique identifier for the function.
   // Behavior: Required. Must be unique within the plugin package.
+  // Format: Function name only (e.g. "send_notification").
   string function_id = 1;
 
   // Human-friendly display name of the function.
@@ -115,6 +116,10 @@ message PluginFunction {
   // JSDoc-style function definition with parameters and return value.
   // Contains structured information about function arguments and return type.
   FunctionDefine function_define = 7;
+
+  // Version of the function.
+  // Allows for multiple versions of the same function to exist.
+  string version = 8;
 }
 
 // Represents a plugin package that can be installed into the platform.
@@ -147,6 +152,7 @@ message PluginFunction {
 message PluginPackage {
   // Stable unique identifier for the plugin package.
   // Behavior: Required; unique across all installed plugins.
+  // Format: Pure package name only (e.g. "sapphillon").
   string package_id = 1;
 
   // Human-friendly name of the plugin package.
@@ -184,4 +190,8 @@ message PluginPackage {
 
   // Time when the plugin metadata or package was last updated.
   google.protobuf.Timestamp updated_at = 11;
+
+  // The provider identifier of the plugin.
+  // Example: "app.sapphillon".
+  string provider_id = 12;
 }
