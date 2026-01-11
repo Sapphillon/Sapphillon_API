@@ -123,17 +123,17 @@ message PluginFunction {
   // Version of the function.
   //
   // Behavior: Optional. When unset (empty string in proto3), the function is
-  // considered versionless or uses a default/unspecified version. Callers MUST NOT
-  // rely on this field always being populated.
+  // considered versionless or uses a default/unspecified version. Callers should
+  // handle cases where this field is unset.
   //
   // Format: Semantic versioning "MAJOR.MINOR.PATCH" (e.g., "1.0.0", "2.1.3") is
   // RECOMMENDED for clarity and consistency. Free-form strings are permitted but
   // discouraged as they complicate version comparison.
   //
-  // Uniqueness: The combination of (function_id, version) SHOULD be unique within
-  // a PluginPackage. For example, "send_notification" v1.0.0 is conceptually
-  // distinct from "send_notification" v2.0.0, allowing the plugin to expose both
-  // versions simultaneously if needed.
+  // Uniqueness: The combination of (function_id, version) MUST be unique within
+  // a PluginPackage to enable proper function resolution. For example,
+  // "send_notification" v1.0.0 is distinct from "send_notification" v2.0.0,
+  // allowing the plugin to expose both versions simultaneously.
   //
   // Default behavior: When this field is not set, implementations typically treat
   // the function as the "default" or "latest" version of that function_id.
@@ -213,8 +213,8 @@ message PluginPackage {
   // The provider identifier of the plugin package.
   //
   // Behavior: Optional. When unset (empty string in proto3), the provider is
-  // considered unknown or uses a default platform provider. Callers MUST NOT
-  // rely on this field always being populated.
+  // considered unknown or uses a default platform provider. Callers should
+  // handle cases where this field is unset.
   //
   // Format: Reverse-domain-style identifier for the publisher or organization
   // that owns this plugin package (not the package itself).
