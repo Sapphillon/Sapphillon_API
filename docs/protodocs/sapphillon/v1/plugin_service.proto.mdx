@@ -1,0 +1,69 @@
+---
+title: plugin_service.proto
+hide_title: true
+---
+
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
+
+# `plugin_service.proto`
+_**path** sapphillon/v1/plugin_service.proto_
+
+_**package** sapphillon.v1_
+
+
+
+---
+
+## Messages
+
+
+### `InstallPluginRequest`
+<ProtoMessage key={0} message={{"name":"InstallPluginRequest","longName":"InstallPluginRequest","fullName":"sapphillon.v1.InstallPluginRequest","description":"Request message for installing a plugin.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"uri","description":"The URI of the plugin to install.\n\nRequired. This field must not be empty.\n\nSecurity constraints:\n- Only HTTPS-based URIs are allowed (e.g. https://example.com/plugin.pkg).\n  Implementations MUST reject non-HTTPS schemes such as file://, http://,\n  ftp://, ssh://, and other potentially dangerous or untrusted schemes.\n- Servers SHOULD validate the host and path against an allowlist or\n  blocklist of trusted plugin sources (e.g. known repositories or domains)\n  before attempting to download or install the plugin.\n- Servers MUST enforce reasonable limits on the size of the downloaded\n  plugin package and on download time to mitigate resource exhaustion\n  (e.g. maximum bytes, timeouts, and concurrent download limits).\n- If a custom or repository-specific scheme is supported, its semantics\n  and security properties SHOULD be documented and validated similarly.\n\nIf this field is empty or does not conform to the expected format/scheme,\nthe server MUST fail the request and return an `INVALID_ARGUMENT` error\nin the `status` field of `InstallPluginResponse`.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `InstallPluginResponse`
+<ProtoMessage key={1} message={{"name":"InstallPluginResponse","longName":"InstallPluginResponse","fullName":"sapphillon.v1.InstallPluginResponse","description":"Response message for installing a plugin.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"plugin","description":"The installed plugin package.\n\nOn success (`status.code == google.rpc.Code.OK`), this field contains\nthe fully installed plugin package.\n\nOn failure or partial installation (`status.code != OK`), this field\nMUST NOT be relied upon and should be treated as unset/undefined by\nclients. Implementations SHOULD leave this field empty in such cases.","label":"","type":"PluginPackage","longType":"PluginPackage","fullType":"sapphillon.v1.PluginPackage","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/plugin.proto#pluginpackage"},{"name":"status","description":"Result of the install operation.\n\n- `status.code == OK`: the plugin was installed successfully and\n  `plugin` is populated with the installed package.\n- `status.code != OK`: the install failed or only partially completed.\n  In this case, clients MUST ignore `plugin`. Implementations MAY\n  use `status.details` to convey additional information about any\n  partial installation state (e.g., which step failed) rather than\n  encoding partial state in `plugin`.","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `ListPluginsRequest`
+<ProtoMessage key={2} message={{"name":"ListPluginsRequest","longName":"ListPluginsRequest","fullName":"sapphillon.v1.ListPluginsRequest","description":"Request message for listing plugins.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"page_size","description":"The maximum number of plugins to return.\nThe service may return fewer than this value.\nIf zero, the server will pick an appropriate default.","label":"","type":"int32","longType":"int32","fullType":"int32","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"page_token","description":"A page token, received from a previous `ListPlugins` call.\nProvide this to retrieve the subsequent page.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `ListPluginsResponse`
+<ProtoMessage key={3} message={{"name":"ListPluginsResponse","longName":"ListPluginsResponse","fullName":"sapphillon.v1.ListPluginsResponse","description":"Response message for listing plugins.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"plugins","description":"A list of available plugin packages.","label":"repeated","type":"PluginPackage","longType":"PluginPackage","fullType":"sapphillon.v1.PluginPackage","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/plugin.proto#pluginpackage"},{"name":"next_page_token","description":"A token to retrieve the next page of results.\nIf this field is empty, there are no more results.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UninstallPluginRequest`
+<ProtoMessage key={4} message={{"name":"UninstallPluginRequest","longName":"UninstallPluginRequest","fullName":"sapphillon.v1.UninstallPluginRequest","description":"Request message for uninstalling a plugin.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"package_id","description":"The package ID of the plugin to uninstall.\n\nRequired. This must be the exact `package_id` of an installed plugin\nas returned by `ListPlugins` or `InstallPlugin`.\n\nIf this field is empty or does not conform to the expected format, the\nserver MUST fail the request and return an `INVALID_ARGUMENT` error in\nthe `status` field of `UninstallPluginResponse`.\n\nIf the specified package does not exist or is already uninstalled, the\nserver MUST return a `NOT_FOUND` error in the `status` field of\n`UninstallPluginResponse`.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UninstallPluginResponse`
+<ProtoMessage key={5} message={{"name":"UninstallPluginResponse","longName":"UninstallPluginResponse","fullName":"sapphillon.v1.UninstallPluginResponse","description":"Response message for uninstalling a plugin.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+---
+## Services
+
+
+### `PluginService`
+
+Service for managing plugins.
+Allows clients to list and query available plugin packages
+that can be used in workflows.
+
+
+#### `ListPlugins`
+<ProtoServiceMethod key={'ListPlugins-0'} method={{"name":"ListPlugins","description":"Lists all available plugin packages.\nReturns a paginated list of plugin packages that can be installed or used.","requestType":"ListPluginsRequest","requestLongType":"ListPluginsRequest","requestFullType":"sapphillon.v1.ListPluginsRequest","requestStreaming":false,"responseType":"ListPluginsResponse","responseLongType":"ListPluginsResponse","responseFullType":"sapphillon.v1.ListPluginsResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/plugin_service.proto#listpluginsrequest","responseTypeLink":"/protodocs/sapphillon/v1/plugin_service.proto#listpluginsresponse"}} />
+
+
+#### `InstallPlugin`
+<ProtoServiceMethod key={'InstallPlugin-1'} method={{"name":"InstallPlugin","description":"Installs a plugin from a given URI.\n\nThis API is experimental and is likely to change.\n\nTODO:\n- Repository support\n- Checksum support\n- Certificate support\n\nSecurity considerations:\n- Authentication and authorization: Callers must be authenticated and\n  authorized to install plugins. This is typically an admin-only operation.\n- Plugin signature verification: Implementations MUST verify plugin\n  signatures before installation (see TODO for certificate support).\n- Sandboxing: Installed plugins SHOULD be isolated/sandboxed to prevent\n  unauthorized access to system resources.\n\nError conditions:\n- INVALID_ARGUMENT: The URI is malformed, uses a disallowed scheme, or\n  the plugin package is invalid.\n- ALREADY_EXISTS: A plugin with the same package ID is already installed.\n- PERMISSION_DENIED: The caller does not have permission to install plugins.\n- FAILED_PRECONDITION: Version conflicts or dependency issues prevent\n  installation.\n\nOn error, the `status` field of `InstallPluginResponse` is populated with\na corresponding `google.rpc.Status`.","requestType":"InstallPluginRequest","requestLongType":"InstallPluginRequest","requestFullType":"sapphillon.v1.InstallPluginRequest","requestStreaming":false,"responseType":"InstallPluginResponse","responseLongType":"InstallPluginResponse","responseFullType":"sapphillon.v1.InstallPluginResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/plugin_service.proto#installpluginrequest","responseTypeLink":"/protodocs/sapphillon/v1/plugin_service.proto#installpluginresponse"}} />
+
+
+#### `UninstallPlugin`
+<ProtoServiceMethod key={'UninstallPlugin-2'} method={{"name":"UninstallPlugin","description":"Uninstalls a plugin by its package ID.\n\nThis API is experimental and is likely to change.\n\nSecurity considerations:\n- Authentication and authorization: Callers must be authenticated and\n  authorized to uninstall plugins. This is typically an admin-only operation.\n\nError conditions:\n- NOT_FOUND: The specified `package_id` does not correspond to any\n  installed plugin.\n- FAILED_PRECONDITION: The plugin is currently in use by one or more\n  active workflows and cannot be uninstalled until those workflows are\n  updated or terminated.\n- PERMISSION_DENIED: The caller does not have sufficient permission to\n  uninstall the plugin.\n\nOn error, the `status` field of `UninstallPluginResponse` is populated\nwith a corresponding `google.rpc.Status`.","requestType":"UninstallPluginRequest","requestLongType":"UninstallPluginRequest","requestFullType":"sapphillon.v1.UninstallPluginRequest","requestStreaming":false,"responseType":"UninstallPluginResponse","responseLongType":"UninstallPluginResponse","responseFullType":"sapphillon.v1.UninstallPluginResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/plugin_service.proto#uninstallpluginrequest","responseTypeLink":"/protodocs/sapphillon/v1/plugin_service.proto#uninstallpluginresponse"}} />
+
+
+---
+
+
+  

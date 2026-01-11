@@ -1,0 +1,41 @@
+---
+title: permission.proto
+hide_title: true
+---
+
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
+
+# `permission.proto`
+_**path** sapphillon/v1/permission.proto_
+
+_**package** sapphillon.v1_
+
+
+
+---
+
+## Messages
+
+
+### `AllowedPermission`
+<ProtoMessage key={0} message={{"name":"AllowedPermission","longName":"AllowedPermission","fullName":"sapphillon.v1.AllowedPermission","description":"Represents a set of permissions granted to a specific plugin function.\nThis message pairs a plugin function identifier with the list of permissions\nthat callers are allowed to exercise when invoking that function.\n\nFields:\n- plugin_function_id: Identifier of the plugin function to which the permissions apply.\n  Format: typically \"package.function\" or the plugin's internal function id. When used\n  within a WorkflowCode, this id should match an entry in WorkflowCode.plugin_function_ids.\n- permissions: The specific Permission values that are allowed for the given function.\n  These should be as narrow as possible to adhere to the principle of least privilege.\n  Example: granting only Permission{ resource: \"secrets/my-secret\", action: READ }\n\nNotes:\n- An AllowedPermission entry grants the listed permissions to code executing that\n  plugin function; it does not automatically grant permissions to other plugin functions.\n- Duplicates in permissions are allowed but have no extra effect; treat the list as a set.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"plugin_function_id","description":"Identifier of the plugin function this permission set applies to.\nThis must correspond to a function exposed by one of the plugin packages listed\nin WorkflowCode.plugin_packages or to a function id present in WorkflowCode.plugin_function_ids.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"permissions","description":"Permissions that are allowed when invoking the specified plugin function.\nPrefer specific Permission.resource and Permission.action combinations to minimize scope.\nExample:\n  permissions: [ { resource: \"secrets/my-secret\", action: READ } ]","label":"repeated","type":"Permission","longType":"Permission","fullType":"sapphillon.v1.Permission","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/permission.proto#permission"}]}} />
+
+
+### `Permission`
+<ProtoMessage key={1} message={{"name":"Permission","longName":"Permission","fullName":"sapphillon.v1.Permission","description":"Describes a single permission requirement or grant for a specific resource.\nUsage:\n- Include in APIs (e.g., workflow or plugin definitions) to declare needed permissions.\n- Use in policy evaluation to check whether a caller is authorized.\n\nFields:\n- display_name: Human-readable name shown in UIs (e.g., \"Read File\").\n- description: Longer explanation of the permission's purpose.\n- permission_type: Action category (read, write, execute).\n- resource: Resource identifiers this permission applies to. Free-form in v1.\n- permission_level: Sensitivity level to inform review and approval.\n\nExample:\n  Permission {\n    display_name: \"Execute Workflow\"\n    description: \"Runs the daily ETL pipeline\"\n    permission_type: PERMISSION_TYPE_EXECUTE\n    resource: [\"workflows/etl_daily\"]\n    permission_level: PERMISSION_LEVEL_HIGH\n  }\n\nField behavior notes:\n- display_name: Recommended.\n- description: Recommended.\n- permission_type: Required.\n- resource: Optional; when omitted applies broadly.\n- permission_level: Recommended; some features may require it.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"display_name","description":"Human-readable name of the permission, suitable for display in UIs.\nExample: \"Read File\", \"Execute Workflow\".","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"description","description":"Detailed description of what the permission allows and when it is used.\nKeep concise but informative for reviewers and users.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"permission_type","description":"The action category this permission authorizes.\nBehavior: Required.","label":"","type":"PermissionType","longType":"PermissionType","fullType":"sapphillon.v1.PermissionType","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/permission.proto#permissiontype"},{"name":"resource","description":"Resource identifiers this permission applies to.\nFormat: Free-form strings in v1 (e.g., \"file.txt\", \"workflows/etl_daily\", \"buckets/logs\").\nBehavior: Optional. If empty, applies broadly and should be used with caution.\nExample: [\"projects/proj-123/locations/us/workflows/etl_daily\"]","label":"repeated","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"permission_level","description":"The sensitivity or criticality level associated with this permission.\nBehavior: Recommended. Some approval flows may require a minimum level.","label":"","type":"PermissionLevel","longType":"PermissionLevel","fullType":"sapphillon.v1.PermissionLevel","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/permission.proto#permissionlevel"}]}} />
+
+---
+## Enums
+
+
+### `PermissionLevel`
+<ProtoEnum key={0} enumb={{"name":"PermissionLevel","longName":"PermissionLevel","fullName":"sapphillon.v1.PermissionLevel","description":"Indicates the sensitivity or criticality level required for a permission.\nThe level may be used by policy engines, reviewers, or UI to require stronger approval.\nValues:\n- PERMISSION_LEVEL_UNSPECIFIED: Default value. Do not use.\n- PERMISSION_LEVEL_MEDIUM: Standard operations with moderate impact.\n- PERMISSION_LEVEL_HIGH: Operations with elevated risk or broader impact.\n- PERMISSION_LEVEL_CRITICAL: Operations that can cause system-wide effects or data loss.","values":[{"name":"PERMISSION_LEVEL_UNSPECIFIED","number":"0","description":"Default value. Do not use."},{"name":"PERMISSION_LEVEL_MEDIUM","number":"1","description":"Standard operations with moderate impact."},{"name":"PERMISSION_LEVEL_HIGH","number":"2","description":"Operations with elevated risk or broader impact."},{"name":"PERMISSION_LEVEL_CRITICAL","number":"3","description":"Operations that can cause system-wide effects or data loss."}]}} />
+
+
+### `PermissionType`
+<ProtoEnum key={1} enumb={{"name":"PermissionType","longName":"PermissionType","fullName":"sapphillon.v1.PermissionType","description":"Enumerates the type of action a permission authorizes.\nValues:\n- PERMISSION_TYPE_UNSPECIFIED: Default value. Do not use.\n- PERMISSION_TYPE_EXECUTE: Grants ability to execute or invoke the resource (e.g., run a workflow).\n- PERMISSION_TYPE_FILESYSTEM_READ: Grants read-only access to the file system.\n- PERMISSION_TYPE_FILESYSTEM_WRITE: Grants write or modify access to the file system.\n- PERMISSION_TYPE_NET_ACCESS: Grants network access.\n- PERMISSION_TYPE_ALLOW_MCP: Grants permission to use the MCP AI service.\n- PERMISSION_TYPE_ALLOW_ALL: Grants all permissions. Use with caution.","values":[{"name":"PERMISSION_TYPE_UNSPECIFIED","number":"0","description":"Default value. Do not use."},{"name":"PERMISSION_TYPE_EXECUTE","number":"3","description":"Grants ability to execute or invoke the resource (e.g., run, trigger)."},{"name":"PERMISSION_TYPE_FILESYSTEM_READ","number":"4","description":"Grants read-only access to the file system."},{"name":"PERMISSION_TYPE_FILESYSTEM_WRITE","number":"5","description":"Grants write or modify access to the file system."},{"name":"PERMISSION_TYPE_NET_ACCESS","number":"6","description":"Grants network access."},{"name":"PERMISSION_TYPE_ALLOW_MCP","number":"7","description":"Grants permission to use the MCP AI service."},{"name":"PERMISSION_TYPE_ALLOW_ALL","number":"8","description":"Grants all permissions. Use with caution."}]}} />
+
+---
+
+
+  

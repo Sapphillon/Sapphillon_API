@@ -1,0 +1,135 @@
+---
+title: workflow_service.proto
+hide_title: true
+---
+
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
+
+# `workflow_service.proto`
+_**path** sapphillon/v1/workflow_service.proto_
+
+_**package** sapphillon.v1_
+
+
+
+---
+
+## Messages
+
+
+### `DeleteWorkflowRequest`
+<ProtoMessage key={0} message={{"name":"DeleteWorkflowRequest","longName":"DeleteWorkflowRequest","fullName":"sapphillon.v1.DeleteWorkflowRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow_id","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `DeleteWorkflowResponse`
+<ProtoMessage key={1} message={{"name":"DeleteWorkflowResponse","longName":"DeleteWorkflowResponse","fullName":"sapphillon.v1.DeleteWorkflowResponse","description":"","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
+
+
+### `FixWorkflowRequest`
+<ProtoMessage key={2} message={{"name":"FixWorkflowRequest","longName":"FixWorkflowRequest","fullName":"sapphillon.v1.FixWorkflowRequest","description":"Request to fix a workflow definition using a problem description.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow_definition","description":"The workflow definition to be fixed.\nFormat: JSON, YAML, or another structured text representation.\nBehavior: Required; must be parseable by the service.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"description","description":"Description of issues to fix or constraints to apply.\nExample: \"Step IDs must be unique; add retry to notification step.\"\nBehavior: Required; must be non-empty.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `FixWorkflowResponse`
+<ProtoMessage key={3} message={{"name":"FixWorkflowResponse","longName":"FixWorkflowResponse","fullName":"sapphillon.v1.FixWorkflowResponse","description":"Server-streamed response carrying fixed workflow definitions and a change summary.\nThe final message typically represents the complete fixed definition.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"fixed_workflow_definition","description":"The fixed workflow definition.","label":"","type":"Workflow","longType":"Workflow","fullType":"sapphillon.v1.Workflow","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflow"},{"name":"change_summary","description":"Summary of changes applied to produce the fixed definition.\nExample: \"Renamed duplicate step IDs; added retry policy to 'notify'.\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"The status of the response.\nIf the status is not OK, it indicates an error.","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GenerateWorkflowRequest`
+<ProtoMessage key={4} message={{"name":"GenerateWorkflowRequest","longName":"GenerateWorkflowRequest","fullName":"sapphillon.v1.GenerateWorkflowRequest","description":"Request to generate a workflow from a natural language prompt.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"prompt","description":"Natural language prompt describing the desired workflow.\nExample: \"Check the weather, and if it's raining, send me a notification.\"\nBehavior: Required; must be non-empty.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"model_name","description":"The name of the model to use for generation.\nFormat: \"models/{model_id}\"\nBehavior: Optional; if not specified, the default model will be used.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GenerateWorkflowResponse`
+<ProtoMessage key={5} message={{"name":"GenerateWorkflowResponse","longName":"GenerateWorkflowResponse","fullName":"sapphillon.v1.GenerateWorkflowResponse","description":"Server-streamed response containing the generated workflow definition.\nEach streamed message may be partial; the client should merge or replace as appropriate.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow_definition","description":"Structured workflow definition.","label":"","type":"Workflow","longType":"Workflow","fullType":"sapphillon.v1.Workflow","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflow"},{"name":"status","description":"The status of the response.\nIf the status is not OK, it indicates an error.","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GetWorkflowRequest`
+<ProtoMessage key={6} message={{"name":"GetWorkflowRequest","longName":"GetWorkflowRequest","fullName":"sapphillon.v1.GetWorkflowRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow_id","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GetWorkflowResponse`
+<ProtoMessage key={7} message={{"name":"GetWorkflowResponse","longName":"GetWorkflowResponse","fullName":"sapphillon.v1.GetWorkflowResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow","description":"","label":"","type":"Workflow","longType":"Workflow","fullType":"sapphillon.v1.Workflow","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflow"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `ListWorkflowsFilter`
+<ProtoMessage key={8} message={{"name":"ListWorkflowsFilter","longName":"ListWorkflowsFilter","fullName":"sapphillon.v1.ListWorkflowsFilter","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"display_name","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"workflow_language","description":"","label":"","type":"WorkflowLanguage","longType":"WorkflowLanguage","fullType":"sapphillon.v1.WorkflowLanguage","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflowlanguage"}]}} />
+
+
+### `ListWorkflowsRequest`
+<ProtoMessage key={9} message={{"name":"ListWorkflowsRequest","longName":"ListWorkflowsRequest","fullName":"sapphillon.v1.ListWorkflowsRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"page_size","description":"","label":"","type":"int32","longType":"int32","fullType":"int32","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"page_token","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"filter","description":"","label":"","type":"ListWorkflowsFilter","longType":"ListWorkflowsFilter","fullType":"sapphillon.v1.ListWorkflowsFilter","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow_service.proto#listworkflowsfilter"},{"name":"order_by","description":"","label":"repeated","type":"OrderByClause","longType":"OrderByClause","fullType":"sapphillon.v1.OrderByClause","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow_service.proto#orderbyclause"}]}} />
+
+
+### `ListWorkflowsResponse`
+<ProtoMessage key={10} message={{"name":"ListWorkflowsResponse","longName":"ListWorkflowsResponse","fullName":"sapphillon.v1.ListWorkflowsResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflows","description":"","label":"repeated","type":"Workflow","longType":"Workflow","fullType":"sapphillon.v1.Workflow","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflow"},{"name":"next_page_token","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `OrderByClause`
+<ProtoMessage key={11} message={{"name":"OrderByClause","longName":"OrderByClause","fullName":"sapphillon.v1.OrderByClause","description":"Order by clause","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"field","description":"Field name to order by (e.g. \"display_name\", \"updated_at\")","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"direction","description":"","label":"","type":"OrderByDirection","longType":"OrderByDirection","fullType":"sapphillon.v1.OrderByDirection","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow_service.proto#orderbydirection"}]}} />
+
+
+### `RunWorkflowRequest`
+<ProtoMessage key={12} message={{"name":"RunWorkflowRequest","longName":"RunWorkflowRequest","fullName":"sapphillon.v1.RunWorkflowRequest","description":"Request to run a workflow by ID.","hasExtensions":false,"hasFields":true,"hasOneofs":true,"extensions":[],"fields":[{"name":"by_id","description":"Run a workflow by its ID and code ID.","label":"","type":"WorkflowSourceById","longType":"WorkflowSourceById","fullType":"sapphillon.v1.WorkflowSourceById","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow_service.proto#workflowsourcebyid"},{"name":"ai_model_name","description":"Optional AI model name to use for this run.\nIf not specified, the default model will be used.\nThe name should match a model from `sapphillon.ai.v1.Models.name`.","label":"optional","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":true,"oneofdecl":"_ai_model_name","defaultValue":""}]}} />
+
+
+### `RunWorkflowResponse`
+<ProtoMessage key={13} message={{"name":"RunWorkflowResponse","longName":"RunWorkflowResponse","fullName":"sapphillon.v1.RunWorkflowResponse","description":"Response after running a workflow.\nContains the result of the workflow execution and status.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow_result","description":"The result of the workflow execution.","label":"","type":"WorkflowResult","longType":"WorkflowResult","fullType":"sapphillon.v1.WorkflowResult","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflowresult"},{"name":"status","description":"The status of the response.\nIf the status is not OK, it indicates an error.","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UpdateWorkflowRequest`
+<ProtoMessage key={14} message={{"name":"UpdateWorkflowRequest","longName":"UpdateWorkflowRequest","fullName":"sapphillon.v1.UpdateWorkflowRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow","description":"","label":"","type":"Workflow","longType":"Workflow","fullType":"sapphillon.v1.Workflow","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflow"},{"name":"update_mask","description":"","label":"","type":"FieldMask","longType":"google.protobuf.FieldMask","fullType":"google.protobuf.FieldMask","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UpdateWorkflowResponse`
+<ProtoMessage key={15} message={{"name":"UpdateWorkflowResponse","longName":"UpdateWorkflowResponse","fullName":"sapphillon.v1.UpdateWorkflowResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow","description":"","label":"","type":"Workflow","longType":"Workflow","fullType":"sapphillon.v1.Workflow","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/workflow.proto#workflow"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `WorkflowSourceById`
+<ProtoMessage key={16} message={{"name":"WorkflowSourceById","longName":"WorkflowSourceById","fullName":"sapphillon.v1.WorkflowSourceById","description":"Specifies a workflow to run using its ID and code ID.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"workflow_id","description":"The ID of the workflow to run.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"workflow_code_id","description":"The ID of the workflow code to run.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+---
+## Enums
+
+
+### `OrderByDirection`
+<ProtoEnum key={0} enumb={{"name":"OrderByDirection","longName":"OrderByDirection","fullName":"sapphillon.v1.OrderByDirection","description":"Sort direction","values":[{"name":"ORDER_BY_DIRECTION_UNSPECIFIED","number":"0","description":""},{"name":"ORDER_BY_DIRECTION_ASC","number":"1","description":"Ascending"},{"name":"ORDER_BY_DIRECTION_DESC","number":"2","description":"Descending"}]}} />
+
+---
+## Services
+
+
+### `WorkflowService`
+
+Generates and fixes structured workflow definitions from natural language descriptions.
+Methods stream partial outputs to allow progressive rendering in UIs and long-running processing.
+
+
+#### `GenerateWorkflow`
+<ProtoServiceMethod key={'GenerateWorkflow-0'} method={{"name":"GenerateWorkflow","description":"Generates a workflow from a natural language prompt.\n\nBehavior:\n- Server-streaming RPC that emits partial or incremental workflow definitions.\n- The client should read until the stream completes to obtain the final definition.\n\nResponses:\n- Each message may represent a partial draft or an updated full definition.\n\nErrors:\n- INVALID_ARGUMENT if the prompt is empty or malformed.\n- INTERNAL for unexpected generation errors.","requestType":"GenerateWorkflowRequest","requestLongType":"GenerateWorkflowRequest","requestFullType":"sapphillon.v1.GenerateWorkflowRequest","requestStreaming":false,"responseType":"GenerateWorkflowResponse","responseLongType":"GenerateWorkflowResponse","responseFullType":"sapphillon.v1.GenerateWorkflowResponse","responseStreaming":true,"requestTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#generateworkflowrequest","responseTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#generateworkflowresponse"}} />
+
+
+#### `FixWorkflow`
+<ProtoServiceMethod key={'FixWorkflow-1'} method={{"name":"FixWorkflow","description":"Fixes an existing workflow definition using a description of issues.\n\nBehavior:\n- Server-streaming RPC that emits suggested fixes and updated definitions incrementally.\n- The final message in the stream typically represents the fully fixed definition.\n\nErrors:\n- INVALID_ARGUMENT if workflow_definition or description is empty.\n- FAILED_PRECONDITION if the definition cannot be parsed.\n- INTERNAL for unexpected processing errors.","requestType":"FixWorkflowRequest","requestLongType":"FixWorkflowRequest","requestFullType":"sapphillon.v1.FixWorkflowRequest","requestStreaming":false,"responseType":"FixWorkflowResponse","responseLongType":"FixWorkflowResponse","responseFullType":"sapphillon.v1.FixWorkflowResponse","responseStreaming":true,"requestTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#fixworkflowrequest","responseTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#fixworkflowresponse"}} />
+
+
+#### `RunWorkflow`
+<ProtoServiceMethod key={'RunWorkflow-2'} method={{"name":"RunWorkflow","description":"Runs a workflow based on the provided definition.","requestType":"RunWorkflowRequest","requestLongType":"RunWorkflowRequest","requestFullType":"sapphillon.v1.RunWorkflowRequest","requestStreaming":false,"responseType":"RunWorkflowResponse","responseLongType":"RunWorkflowResponse","responseFullType":"sapphillon.v1.RunWorkflowResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#runworkflowrequest","responseTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#runworkflowresponse"}} />
+
+
+#### `GetWorkflow`
+<ProtoServiceMethod key={'GetWorkflow-3'} method={{"name":"GetWorkflow","description":"","requestType":"GetWorkflowRequest","requestLongType":"GetWorkflowRequest","requestFullType":"sapphillon.v1.GetWorkflowRequest","requestStreaming":false,"responseType":"GetWorkflowResponse","responseLongType":"GetWorkflowResponse","responseFullType":"sapphillon.v1.GetWorkflowResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#getworkflowrequest","responseTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#getworkflowresponse"}} />
+
+
+#### `ListWorkflows`
+<ProtoServiceMethod key={'ListWorkflows-4'} method={{"name":"ListWorkflows","description":"","requestType":"ListWorkflowsRequest","requestLongType":"ListWorkflowsRequest","requestFullType":"sapphillon.v1.ListWorkflowsRequest","requestStreaming":false,"responseType":"ListWorkflowsResponse","responseLongType":"ListWorkflowsResponse","responseFullType":"sapphillon.v1.ListWorkflowsResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#listworkflowsrequest","responseTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#listworkflowsresponse"}} />
+
+
+#### `UpdateWorkflow`
+<ProtoServiceMethod key={'UpdateWorkflow-5'} method={{"name":"UpdateWorkflow","description":"","requestType":"UpdateWorkflowRequest","requestLongType":"UpdateWorkflowRequest","requestFullType":"sapphillon.v1.UpdateWorkflowRequest","requestStreaming":false,"responseType":"UpdateWorkflowResponse","responseLongType":"UpdateWorkflowResponse","responseFullType":"sapphillon.v1.UpdateWorkflowResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#updateworkflowrequest","responseTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#updateworkflowresponse"}} />
+
+
+#### `DeleteWorkflow`
+<ProtoServiceMethod key={'DeleteWorkflow-6'} method={{"name":"DeleteWorkflow","description":"","requestType":"DeleteWorkflowRequest","requestLongType":"DeleteWorkflowRequest","requestFullType":"sapphillon.v1.DeleteWorkflowRequest","requestStreaming":false,"responseType":"DeleteWorkflowResponse","responseLongType":"DeleteWorkflowResponse","responseFullType":"sapphillon.v1.DeleteWorkflowResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#deleteworkflowrequest","responseTypeLink":"/protodocs/sapphillon/v1/workflow_service.proto#deleteworkflowresponse"}} />
+
+
+---
+
+
+  

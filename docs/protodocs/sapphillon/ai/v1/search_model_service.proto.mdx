@@ -1,0 +1,43 @@
+---
+title: search_model_service.proto
+hide_title: true
+---
+
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
+
+# `search_model_service.proto`
+_**path** sapphillon/ai/v1/search_model_service.proto_
+
+_**package** sapphillon.ai.v1_
+
+
+
+---
+
+## Messages
+
+
+### `SearchModelRequest`
+<ProtoMessage key={0} message={{"name":"SearchModelRequest","longName":"SearchModelRequest","fullName":"sapphillon.ai.v1.SearchModelRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":true,"extensions":[],"fields":[{"name":"provider_name_query","description":"The query string to search for models.","label":"optional","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":true,"oneofdecl":"_provider_name_query","defaultValue":""},{"name":"model_name_query","description":"","label":"optional","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":true,"oneofdecl":"_model_name_query","defaultValue":""},{"name":"page_size","description":"The maximum number of results to return.","label":"","type":"int32","longType":"int32","fullType":"int32","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"page_token","description":"The page token for pagination.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `SearchModelResponse`
+<ProtoMessage key={1} message={{"name":"SearchModelResponse","longName":"SearchModelResponse","fullName":"sapphillon.ai.v1.SearchModelResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"models","description":"The list of models matching the search criteria.","label":"repeated","type":"Models","longType":"Models","fullType":"sapphillon.ai.v1.Models","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/model.proto#models"},{"name":"next_page_token","description":"The token to retrieve the next page of results.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+---
+## Services
+
+
+### `SearchModelService`
+
+
+
+
+#### `SearchModel`
+<ProtoServiceMethod key={'SearchModel-0'} method={{"name":"SearchModel","description":"Searches for models based on the provided query.\nReturns a list of models that match the search criteria.","requestType":"SearchModelRequest","requestLongType":"SearchModelRequest","requestFullType":"sapphillon.ai.v1.SearchModelRequest","requestStreaming":false,"responseType":"SearchModelResponse","responseLongType":"SearchModelResponse","responseFullType":"sapphillon.ai.v1.SearchModelResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/search_model_service.proto#searchmodelrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/search_model_service.proto#searchmodelresponse"}} />
+
+
+---
+
+
+  

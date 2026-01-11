@@ -1,0 +1,48 @@
+---
+title: version.proto
+hide_title: true
+---
+
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
+
+# `version.proto`
+_**path** sapphillon/v1/version.proto_
+
+_**package** sapphillon.v1_
+
+
+
+---
+
+## Messages
+
+
+### `GetVersionRequest`
+<ProtoMessage key={0} message={{"name":"GetVersionRequest","longName":"GetVersionRequest","fullName":"sapphillon.v1.GetVersionRequest","description":"Request for GetVersion.\nThis message is intentionally empty to allow future extensibility without breaking changes.","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
+
+
+### `GetVersionResponse`
+<ProtoMessage key={1} message={{"name":"GetVersionResponse","longName":"GetVersionResponse","fullName":"sapphillon.v1.GetVersionResponse","description":"Response for GetVersion.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"version","description":"The current application version.","label":"","type":"Version","longType":"Version","fullType":"sapphillon.v1.Version","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/v1/version.proto#version"}]}} />
+
+
+### `Version`
+<ProtoMessage key={2} message={{"name":"Version","longName":"Version","fullName":"sapphillon.v1.Version","description":"Represents application version information.\nThe version string typically follows Semantic Versioning.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"version","description":"The version of the application.\nFormat: \"vMAJOR.MINOR.PATCH\" with optional pre-release or build metadata\n(e.g., \"v1.2.3\", \"v1.2.3-alpha-1\", \"v1.2.3-beta.1\").","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+---
+## Services
+
+
+### `VersionService`
+
+Provides read-only application version information.
+The service returns semantic version strings for display and compatibility checks.
+
+
+#### `GetVersion`
+<ProtoServiceMethod key={'GetVersion-0'} method={{"name":"GetVersion","description":"Returns the current application version.\n\nBehavior:\n- Unary RPC.\n- Guaranteed to be fast and side-effect free.\n- Suitable for health checks or compatibility gating.\n\nErrors:\n- Typically none; may return INTERNAL if the version cannot be determined.","requestType":"GetVersionRequest","requestLongType":"GetVersionRequest","requestFullType":"sapphillon.v1.GetVersionRequest","requestStreaming":false,"responseType":"GetVersionResponse","responseLongType":"GetVersionResponse","responseFullType":"sapphillon.v1.GetVersionResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/v1/version.proto#getversionrequest","responseTypeLink":"/protodocs/sapphillon/v1/version.proto#getversionresponse"}} />
+
+
+---
+
+
+  
