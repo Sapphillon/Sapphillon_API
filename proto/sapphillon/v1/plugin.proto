@@ -95,6 +95,10 @@ message FunctionDefine {
 message PluginFunction {
   // Stable unique identifier for the function.
   // Behavior: Required. Must be unique within the plugin package.
+  // Format: Plugin-scoped identifier (e.g. "send_notification").
+  //         When referenced from AllowedPermission.plugin_function_id, it MAY be used
+  //         either as this bare identifier or as part of a fully qualified name such
+  //         as "package.send_notification".
   string function_id = 1;
 
   // Human-friendly display name of the function.
@@ -115,6 +119,25 @@ message PluginFunction {
   // JSDoc-style function definition with parameters and return value.
   // Contains structured information about function arguments and return type.
   FunctionDefine function_define = 7;
+
+  // Version of the function.
+  //
+  // Behavior: Optional. When unset (empty string in proto3), the function is
+  // considered versionless or uses a default/unspecified version. Callers MUST NOT
+  // rely on this field always being populated.
+  //
+  // Format: Semantic versioning "MAJOR.MINOR.PATCH" (e.g., "1.0.0", "2.1.3") is
+  // RECOMMENDED for clarity and consistency. Free-form strings are permitted but
+  // discouraged as they complicate version comparison.
+  //
+  // Uniqueness: The combination of (function_id, version) SHOULD be unique within
+  // a PluginPackage. For example, "send_notification" v1.0.0 is conceptually
+  // distinct from "send_notification" v2.0.0, allowing the plugin to expose both
+  // versions simultaneously if needed.
+  //
+  // Default behavior: When this field is not set, implementations typically treat
+  // the function as the "default" or "latest" version of that function_id.
+  string version = 8;
 }
 
 // Represents a plugin package that can be installed into the platform.
@@ -136,17 +159,19 @@ message PluginFunction {
 //
 // Example:
 //   PluginPackage {
-//     package_id: "com.example.notifications"
+//     package_id: "notifications"
 //     package_name: "Notifications"
 //     package_version: "1.4.0"
 //     description: "Provides functions for sending notifications"
-//     plugin_store_url: "https://plugins.example.com/com.example.notifications"
+//     plugin_store_url: "https://plugins.example.com/notifications"
 //     verified: true
+//     provider_id: "com.example"
 //     functions: [{ function_id: "send_notification", ... }]
 //   }
 message PluginPackage {
   // Stable unique identifier for the plugin package.
   // Behavior: Required; unique across all installed plugins.
+  // Format: Pure package name only (e.g. "sapphillon").
   string package_id = 1;
 
   // Human-friendly name of the plugin package.
@@ -184,4 +209,24 @@ message PluginPackage {
 
   // Time when the plugin metadata or package was last updated.
   google.protobuf.Timestamp updated_at = 11;
+
+  // The provider identifier of the plugin package.
+  //
+  // Behavior: Optional. When unset (empty string in proto3), the provider is
+  // considered unknown or uses a default platform provider. Callers MUST NOT
+  // rely on this field always being populated.
+  //
+  // Format: Reverse-domain-style identifier for the publisher or organization
+  // that owns this plugin package (not the package itself).
+  // Examples: "app.sapphillon", "com.example", "org.acme.plugins".
+  //
+  // Relationship to package_id:
+  // - provider_id identifies the provider/publisher.
+  // - package_id identifies a specific plugin package.
+  // - Multiple PluginPackage resources may share the same provider_id.
+  //
+  // Note: This provider_id is conceptually distinct from the AI provider
+  // resource IDs used in sapphillon.ai.v1 (e.g., "providers/{provider_id}").
+  // It should not be confused or intermixed with those identifiers.
+  string provider_id = 12;
 }
