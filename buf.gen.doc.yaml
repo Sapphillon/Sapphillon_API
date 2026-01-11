@@ -1,0 +1,6 @@
+version: v2
+plugins:
+  - remote: buf.build/pseudomuto/protoc-gen-doc
+    out: gen/docs
+    opt:
+      - html,index.html

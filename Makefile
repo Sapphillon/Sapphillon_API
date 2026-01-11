@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-.PHONY: buf_check_style, buf_fix_style, buf_debug
+.PHONY: buf_check_style, buf_fix_style, buf_debug, docs
 
 buf_check_style:
 	@echo "Check Protocol Buffer Style"
@@ -36,3 +36,14 @@ buf_debug:
 	fi; \
 	evans --proto $$proto_files repl
 
+docs:
+	@echo "Generate Protocol Buffer Documentation"
+	@echo "----------------------------------------------------------"
+	buf generate --template buf.gen.doc.yaml
+	@echo "----------------------------------------------------------"
+
+docs:
+	@echo "Generate Protocol Buffer Documentation"
+	@echo "----------------------------------------------------------"
+	buf generate --template buf.gen.doc.yaml
+	@echo "----------------------------------------------------------"
