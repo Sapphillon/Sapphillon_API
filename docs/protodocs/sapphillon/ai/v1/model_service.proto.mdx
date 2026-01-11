@@ -1,0 +1,93 @@
+---
+title: model_service.proto
+hide_title: true
+---
+
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
+
+# `model_service.proto`
+_**path** sapphillon/ai/v1/model_service.proto_
+
+_**package** sapphillon.ai.v1_
+
+
+
+---
+
+## Messages
+
+
+### `CreateModelRequest`
+<ProtoMessage key={0} message={{"name":"CreateModelRequest","longName":"CreateModelRequest","fullName":"sapphillon.ai.v1.CreateModelRequest","description":"Request message for creating a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"model","description":"The model resource to create.\nThe `name` field should be left empty; the server will assign it.","label":"","type":"Models","longType":"Models","fullType":"sapphillon.ai.v1.Models","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/model.proto#models"}]}} />
+
+
+### `CreateModelResponse`
+<ProtoMessage key={1} message={{"name":"CreateModelResponse","longName":"CreateModelResponse","fullName":"sapphillon.ai.v1.CreateModelResponse","description":"Response message for creating a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"model","description":"","label":"","type":"Models","longType":"Models","fullType":"sapphillon.ai.v1.Models","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/model.proto#models"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `DeleteModelRequest`
+<ProtoMessage key={2} message={{"name":"DeleteModelRequest","longName":"DeleteModelRequest","fullName":"sapphillon.ai.v1.DeleteModelRequest","description":"Request message for deleting a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"name","description":"The resource name of the model to delete.\nFormat: \"models/{model_id}\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `DeleteModelResponse`
+<ProtoMessage key={3} message={{"name":"DeleteModelResponse","longName":"DeleteModelResponse","fullName":"sapphillon.ai.v1.DeleteModelResponse","description":"Response message for deleting a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GetModelRequest`
+<ProtoMessage key={4} message={{"name":"GetModelRequest","longName":"GetModelRequest","fullName":"sapphillon.ai.v1.GetModelRequest","description":"Request message for retrieving a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"name","description":"The resource name of the model to retrieve.\nFormat: \"models/{model_id}\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GetModelResponse`
+<ProtoMessage key={5} message={{"name":"GetModelResponse","longName":"GetModelResponse","fullName":"sapphillon.ai.v1.GetModelResponse","description":"Response message for retrieving a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"model","description":"","label":"","type":"Models","longType":"Models","fullType":"sapphillon.ai.v1.Models","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/model.proto#models"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `ListModelsRequest`
+<ProtoMessage key={6} message={{"name":"ListModelsRequest","longName":"ListModelsRequest","fullName":"sapphillon.ai.v1.ListModelsRequest","description":"Request message for listing models.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"page_size","description":"The maximum number of models to return.","label":"","type":"int32","longType":"int32","fullType":"int32","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"page_token","description":"A page token, received from a previous `ListModels` call.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `ListModelsResponse`
+<ProtoMessage key={7} message={{"name":"ListModelsResponse","longName":"ListModelsResponse","fullName":"sapphillon.ai.v1.ListModelsResponse","description":"Response message for listing models.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"models","description":"A list of configured models.","label":"repeated","type":"Models","longType":"Models","fullType":"sapphillon.ai.v1.Models","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/model.proto#models"},{"name":"next_page_token","description":"A token to retrieve the next page of results.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UpdateModelRequest`
+<ProtoMessage key={8} message={{"name":"UpdateModelRequest","longName":"UpdateModelRequest","fullName":"sapphillon.ai.v1.UpdateModelRequest","description":"Request message for updating a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"model","description":"The model resource with updated fields.\nThe `name` field is used to identify the model to update.","label":"","type":"Models","longType":"Models","fullType":"sapphillon.ai.v1.Models","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/model.proto#models"},{"name":"update_mask","description":"The list of fields to be updated.","label":"","type":"FieldMask","longType":"google.protobuf.FieldMask","fullType":"google.protobuf.FieldMask","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UpdateModelResponse`
+<ProtoMessage key={9} message={{"name":"UpdateModelResponse","longName":"UpdateModelResponse","fullName":"sapphillon.ai.v1.UpdateModelResponse","description":"Response message for updating a model.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"model","description":"","label":"","type":"Models","longType":"Models","fullType":"sapphillon.ai.v1.Models","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/model.proto#models"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+---
+## Services
+
+
+### `ModelService`
+
+Service for managing LLM models.
+Allows clients to configure, list, update, and remove
+different LLM models that the system can use.
+
+
+#### `CreateModel`
+<ProtoServiceMethod key={'CreateModel-0'} method={{"name":"CreateModel","description":"Creates a new model configuration.\nReturns the created model resource.","requestType":"CreateModelRequest","requestLongType":"CreateModelRequest","requestFullType":"sapphillon.ai.v1.CreateModelRequest","requestStreaming":false,"responseType":"CreateModelResponse","responseLongType":"CreateModelResponse","responseFullType":"sapphillon.ai.v1.CreateModelResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#createmodelrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#createmodelresponse"}} />
+
+
+#### `GetModel`
+<ProtoServiceMethod key={'GetModel-1'} method={{"name":"GetModel","description":"Retrieves a specific model's details by its resource name.","requestType":"GetModelRequest","requestLongType":"GetModelRequest","requestFullType":"sapphillon.ai.v1.GetModelRequest","requestStreaming":false,"responseType":"GetModelResponse","responseLongType":"GetModelResponse","responseFullType":"sapphillon.ai.v1.GetModelResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#getmodelrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#getmodelresponse"}} />
+
+
+#### `ListModels`
+<ProtoServiceMethod key={'ListModels-2'} method={{"name":"ListModels","description":"Lists all configured models.","requestType":"ListModelsRequest","requestLongType":"ListModelsRequest","requestFullType":"sapphillon.ai.v1.ListModelsRequest","requestStreaming":false,"responseType":"ListModelsResponse","responseLongType":"ListModelsResponse","responseFullType":"sapphillon.ai.v1.ListModelsResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#listmodelsrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#listmodelsresponse"}} />
+
+
+#### `UpdateModel`
+<ProtoServiceMethod key={'UpdateModel-3'} method={{"name":"UpdateModel","description":"Updates a model's configuration.\nUse a field_mask to specify which fields to update.","requestType":"UpdateModelRequest","requestLongType":"UpdateModelRequest","requestFullType":"sapphillon.ai.v1.UpdateModelRequest","requestStreaming":false,"responseType":"UpdateModelResponse","responseLongType":"UpdateModelResponse","responseFullType":"sapphillon.ai.v1.UpdateModelResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#updatemodelrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#updatemodelresponse"}} />
+
+
+#### `DeleteModel`
+<ProtoServiceMethod key={'DeleteModel-4'} method={{"name":"DeleteModel","description":"Deletes a model configuration permanently.","requestType":"DeleteModelRequest","requestLongType":"DeleteModelRequest","requestFullType":"sapphillon.ai.v1.DeleteModelRequest","requestStreaming":false,"responseType":"DeleteModelResponse","responseLongType":"DeleteModelResponse","responseFullType":"sapphillon.ai.v1.DeleteModelResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#deletemodelrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/model_service.proto#deletemodelresponse"}} />
+
+
+---
+
+
+  

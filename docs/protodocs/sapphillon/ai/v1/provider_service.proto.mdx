@@ -1,0 +1,93 @@
+---
+title: provider_service.proto
+hide_title: true
+---
+
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
+
+# `provider_service.proto`
+_**path** sapphillon/ai/v1/provider_service.proto_
+
+_**package** sapphillon.ai.v1_
+
+
+
+---
+
+## Messages
+
+
+### `CreateProviderRequest`
+<ProtoMessage key={0} message={{"name":"CreateProviderRequest","longName":"CreateProviderRequest","fullName":"sapphillon.ai.v1.CreateProviderRequest","description":"Request message for creating a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"provider","description":"The provider resource to create.\nThe `name` field should be left empty; the server will assign it.\n`display_name` and `api_key` are required.","label":"","type":"Provider","longType":"Provider","fullType":"sapphillon.ai.v1.Provider","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/provider.proto#provider"}]}} />
+
+
+### `CreateProviderResponse`
+<ProtoMessage key={1} message={{"name":"CreateProviderResponse","longName":"CreateProviderResponse","fullName":"sapphillon.ai.v1.CreateProviderResponse","description":"Response message for creating a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"provider","description":"","label":"","type":"Provider","longType":"Provider","fullType":"sapphillon.ai.v1.Provider","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/provider.proto#provider"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `DeleteProviderRequest`
+<ProtoMessage key={2} message={{"name":"DeleteProviderRequest","longName":"DeleteProviderRequest","fullName":"sapphillon.ai.v1.DeleteProviderRequest","description":"Request message for deleting a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"name","description":"The resource name of the provider to delete.\nFormat: \"providers/{provider_id}\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `DeleteProviderResponse`
+<ProtoMessage key={3} message={{"name":"DeleteProviderResponse","longName":"DeleteProviderResponse","fullName":"sapphillon.ai.v1.DeleteProviderResponse","description":"Response message for deleting a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GetProviderRequest`
+<ProtoMessage key={4} message={{"name":"GetProviderRequest","longName":"GetProviderRequest","fullName":"sapphillon.ai.v1.GetProviderRequest","description":"Request message for retrieving a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"name","description":"The resource name of the provider to retrieve.\nFormat: \"providers/{provider_id}\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `GetProviderResponse`
+<ProtoMessage key={5} message={{"name":"GetProviderResponse","longName":"GetProviderResponse","fullName":"sapphillon.ai.v1.GetProviderResponse","description":"Response message for retrieving a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"provider","description":"","label":"","type":"Provider","longType":"Provider","fullType":"sapphillon.ai.v1.Provider","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/provider.proto#provider"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `ListProvidersRequest`
+<ProtoMessage key={6} message={{"name":"ListProvidersRequest","longName":"ListProvidersRequest","fullName":"sapphillon.ai.v1.ListProvidersRequest","description":"Request message for listing providers.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"page_size","description":"The maximum number of providers to return.\nThe service may return fewer than this value.\nIf zero, the server will pick an appropriate default.","label":"","type":"int32","longType":"int32","fullType":"int32","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"page_token","description":"A page token, received from a previous `ListProviders` call.\nProvide this to retrieve the subsequent page.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `ListProvidersResponse`
+<ProtoMessage key={7} message={{"name":"ListProvidersResponse","longName":"ListProvidersResponse","fullName":"sapphillon.ai.v1.ListProvidersResponse","description":"Response message for listing providers.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"providers","description":"A list of configured providers.","label":"repeated","type":"Provider","longType":"Provider","fullType":"sapphillon.ai.v1.Provider","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/provider.proto#provider"},{"name":"next_page_token","description":"A token to retrieve the next page of results.\nIf this field is empty, there are no more results.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UpdateProviderRequest`
+<ProtoMessage key={8} message={{"name":"UpdateProviderRequest","longName":"UpdateProviderRequest","fullName":"sapphillon.ai.v1.UpdateProviderRequest","description":"Request message for updating a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"provider","description":"The provider resource with updated fields.\nThe `name` field is used to identify the provider to update.","label":"","type":"Provider","longType":"Provider","fullType":"sapphillon.ai.v1.Provider","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/provider.proto#provider"},{"name":"update_mask","description":"The list of fields to be updated.\ne.g., \"display_name\", \"api_key\"","label":"","type":"FieldMask","longType":"google.protobuf.FieldMask","fullType":"google.protobuf.FieldMask","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+
+### `UpdateProviderResponse`
+<ProtoMessage key={9} message={{"name":"UpdateProviderResponse","longName":"UpdateProviderResponse","fullName":"sapphillon.ai.v1.UpdateProviderResponse","description":"Response message for updating a provider.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"provider","description":"","label":"","type":"Provider","longType":"Provider","fullType":"sapphillon.ai.v1.Provider","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":"","typeLink":"/protodocs/sapphillon/ai/v1/provider.proto#provider"},{"name":"status","description":"","label":"","type":"Status","longType":"google.rpc.Status","fullType":"google.rpc.Status","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
+---
+## Services
+
+
+### `ProviderService`
+
+Service for managing LLM providers.
+Allows clients to configure, list, update, and remove
+different LLM providers that the system can use.
+
+
+#### `CreateProvider`
+<ProtoServiceMethod key={'CreateProvider-0'} method={{"name":"CreateProvider","description":"Creates a new provider configuration.\nThe `api_key` must be provided in the request.\nReturns the created provider resource.","requestType":"CreateProviderRequest","requestLongType":"CreateProviderRequest","requestFullType":"sapphillon.ai.v1.CreateProviderRequest","requestStreaming":false,"responseType":"CreateProviderResponse","responseLongType":"CreateProviderResponse","responseFullType":"sapphillon.ai.v1.CreateProviderResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#createproviderrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#createproviderresponse"}} />
+
+
+#### `GetProvider`
+<ProtoServiceMethod key={'GetProvider-1'} method={{"name":"GetProvider","description":"Retrieves a specific provider's details by its resource name.\nThe `api_key` will not be returned in the response.\nReturns the requested provider resource.","requestType":"GetProviderRequest","requestLongType":"GetProviderRequest","requestFullType":"sapphillon.ai.v1.GetProviderRequest","requestStreaming":false,"responseType":"GetProviderResponse","responseLongType":"GetProviderResponse","responseFullType":"sapphillon.ai.v1.GetProviderResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#getproviderrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#getproviderresponse"}} />
+
+
+#### `ListProviders`
+<ProtoServiceMethod key={'ListProviders-2'} method={{"name":"ListProviders","description":"Lists all configured providers.\nThe `api_key` will not be returned in the response.\nReturns a list of provider resources.\n\nAlready uses a proper response message","requestType":"ListProvidersRequest","requestLongType":"ListProvidersRequest","requestFullType":"sapphillon.ai.v1.ListProvidersRequest","requestStreaming":false,"responseType":"ListProvidersResponse","responseLongType":"ListProvidersResponse","responseFullType":"sapphillon.ai.v1.ListProvidersResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#listprovidersrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#listprovidersresponse"}} />
+
+
+#### `UpdateProvider`
+<ProtoServiceMethod key={'UpdateProvider-3'} method={{"name":"UpdateProvider","description":"Updates a provider's configuration.\nUse a field_mask to specify which fields to update.\nYou can update the `display_name` and `api_key`.\nReturns the updated provider resource.","requestType":"UpdateProviderRequest","requestLongType":"UpdateProviderRequest","requestFullType":"sapphillon.ai.v1.UpdateProviderRequest","requestStreaming":false,"responseType":"UpdateProviderResponse","responseLongType":"UpdateProviderResponse","responseFullType":"sapphillon.ai.v1.UpdateProviderResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#updateproviderrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#updateproviderresponse"}} />
+
+
+#### `DeleteProvider`
+<ProtoServiceMethod key={'DeleteProvider-4'} method={{"name":"DeleteProvider","description":"Deletes a provider configuration permanently.\nReturns an empty response on success.","requestType":"DeleteProviderRequest","requestLongType":"DeleteProviderRequest","requestFullType":"sapphillon.ai.v1.DeleteProviderRequest","requestStreaming":false,"responseType":"DeleteProviderResponse","responseLongType":"DeleteProviderResponse","responseFullType":"sapphillon.ai.v1.DeleteProviderResponse","responseStreaming":false,"requestTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#deleteproviderrequest","responseTypeLink":"/protodocs/sapphillon/ai/v1/provider_service.proto#deleteproviderresponse"}} />
+
+
+---
+
+
+  
