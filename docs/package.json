@@ -24,7 +24,7 @@
     "docusaurus-protobuffet": "^0.3.3",
     "glob": "^13.0.0",
     "prism-react-renderer": "^2.3.0",
-    "protobufjs": "^8.0.0",
+    "protobufjs": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
