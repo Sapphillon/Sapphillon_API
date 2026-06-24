@@ -31,6 +31,7 @@ package sapphillon.arcana.v1;
 // - api_version: The Arcana ecosystem API version this package targets (Kubernetes-style, e.g., "v1", "v1alpha1").
 //
 // Example:
+// ```proto
 //   PackageToml {
 //     package: {
 //       id: "my-awesome-plugin"
@@ -43,6 +44,7 @@ package sapphillon.arcana.v1;
 //     }
 //     api_version: "v1"
 //   }
+// ```
 message PackageToml {
   // The package configuration block.
   // See PackageConfig for details.
@@ -73,6 +75,7 @@ message PackageToml {
 // - homepage_url: Optional URL to homepage or documentation.
 //
 // Example:
+// ```proto
 //   PackageConfig {
 //     id: "my-awesome-plugin"
 //     name: "My Awesome Plugin"
@@ -82,6 +85,7 @@ message PackageToml {
 //     tags: ["automation", "utility"]
 //     homepage_url: "https://github.com/user/my-plugin"
 //   }
+// ```
 message PackageConfig {
   // The stable unique identifier of the package.
   // Behavior: Required. Must be unique within a repository. Immutable once registered.

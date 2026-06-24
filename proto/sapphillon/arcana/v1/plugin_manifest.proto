@@ -33,11 +33,13 @@ import "sapphillon/v1/permission.proto";
 // - description: A short description of what the variable represents.
 //
 // Example:
+// ```proto
 //   IODefinition {
 //     type: "string"
 //     name: "userId"
 //     description: "The unique identifier of the user"
 //   }
+// ```
 message IODefinition {
   // The data type of the variable.
   // Format: TypeScript/JavaScript type expression (e.g., "string", "number", "boolean", "object", "Array<string>").
@@ -58,9 +60,11 @@ message IODefinition {
 // - io_definition: The I/O definition describing this parameter's type, name, and description.
 //
 // Example:
+// ```proto
 //   Params {
 //     io_definition: { type: "string", name: "channelId", description: "Target channel ID" }
 //   }
+// ```
 message Params {
   // The I/O definition describing this parameter's type, name, and description.
   IODefinition io_definition = 1;
@@ -72,9 +76,11 @@ message Params {
 // - io_definition: The I/O definition describing this return value's type, name, and description.
 //
 // Example:
+// ```proto
 //   Return {
 //     io_definition: { type: "boolean", name: "success", description: "True if the operation succeeded" }
 //   }
+// ```
 message Return {
   // The I/O definition describing this return value's type, name, and description.
   IODefinition io_definition = 1;
@@ -90,6 +96,7 @@ message Return {
 // - returns: The function return values.
 //
 // Example:
+// ```proto
 //   FunctionDefinition {
 //     name: "sendNotification"
 //     description: "Sends a message to a configured channel"
@@ -97,6 +104,7 @@ message Return {
 //     params: [{ io_definition: { type: "string", name: "channelId", description: "Target channel" } }]
 //     returns: [{ io_definition: { type: "boolean", name: "success", description: "True if sent" } }]
 //   }
+// ```
 message FunctionDefinition {
   // The name of the function.
   // Behavior: Required. Must be unique within the plugin package. Used as the stable identifier for invoking the function at runtime.
@@ -130,10 +138,12 @@ message FunctionDefinition {
 // - functions: The functions exposed by this plugin.
 //
 // Example:
+// ```proto
 //   PluginManifest {
 //     package_config: { id: "my-plugin", name: "My Plugin", version: "1.0.0", ... }
 //     functions: [{ name: "sendNotification", ... }]
 //   }
+// ```
 message PluginManifest {
   // The static package configuration sourced from package.toml.
   // See PackageConfig.
