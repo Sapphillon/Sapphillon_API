@@ -54,37 +54,6 @@ message IODefinition {
   string description = 3;
 }
 
-// Wraps an IODefinition to represent a single function parameter (argument).
-//
-// Fields:
-// - io_definition: The I/O definition describing this parameter's type, name, and description.
-//
-// Example:
-// ```proto
-//   Params {
-//     io_definition: { type: "string", name: "channelId", description: "Target channel ID" }
-//   }
-// ```
-message Params {
-  // The I/O definition describing this parameter's type, name, and description.
-  IODefinition io_definition = 1;
-}
-
-// Wraps an IODefinition to represent a single function return value.
-//
-// Fields:
-// - io_definition: The I/O definition describing this return value's type, name, and description.
-//
-// Example:
-// ```proto
-//   Return {
-//     io_definition: { type: "boolean", name: "success", description: "True if the operation succeeded" }
-//   }
-// ```
-message Return {
-  // The I/O definition describing this return value's type, name, and description.
-  IODefinition io_definition = 1;
-}
 
 // Represents a single function exposed by the plugin, including JSDoc-extracted metadata such as permissions, parameters, and return values.
 //
@@ -121,11 +90,11 @@ message FunctionDefinition {
 
   // The function parameters (arguments), in declaration order.
   // Behavior: Extracted from JSDoc @param tags.
-  repeated Params params = 4;
+  repeated IODefinition params = 4;
 
   // The function return values.
   // Behavior: Extracted from JSDoc @returns tags. May be empty for void functions.
-  repeated Return returns = 5;
+  repeated IODefinition returns = 5;
 }
 
 // The complete runtime metadata embedded into package.js at build time. Combines the static PackageConfig from package.toml with dynamic FunctionDefinitions extracted from JSDoc.
