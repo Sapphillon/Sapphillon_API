@@ -1,0 +1,73 @@
+// Copyright 2025 Yuta Takahashi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package sapphillon.arcana.v1;
+
+import "sapphillon/arcana/v1/package_config.proto";
+import "sapphillon/arcana/v1/permission.proto";
+
+// ============================================================
+// PluginManifest — package.js 内マニフェスト
+//     コメントブロック /* @arcana-manifest {...} */ に直列化
+// ============================================================
+
+// 関数の入出力の型と名前の定義。
+message IODefinition {
+  // 値の JavaScript 型。
+  JSValueType type = 1;
+  // 値の名前。
+  string name = 2;
+  // 値の説明。
+  string description = 3;
+}
+
+// JavaScript の値型を表す列挙子。
+enum JSValueType {
+  // 未指定。proto3 の既定値。
+  JS_VALUE_TYPE_UNSPECIFIED = 0;
+  // オブジェクト型。
+  JS_VALUE_TYPE_OBJECT = 1;
+  // 配列型。
+  JS_VALUE_TYPE_ARRAY = 2;
+  // 文字列型。
+  JS_VALUE_TYPE_STRING = 3;
+  // 数値型。
+  JS_VALUE_TYPE_NUMBER = 4;
+  // 真偽値型。
+  JS_VALUE_TYPE_BOOLEAN = 5;
+}
+
+// プラグインが公開する関数の定義。
+message FunctionDefinition {
+  // 関数名。
+  string name = 1;
+  // 関数の説明。
+  string description = 2;
+  // 関数の実行に必要な権限一覧。
+  repeated Permission permissions = 3;
+  // 関数の引数一覧。
+  repeated IODefinition params = 4;
+  // 戻り値の定義。
+  optional IODefinition returns = 5; // 単数。void 関数は省略
+}
+
+// プラグインマニフェスト本体。package.js 内に直列化される。
+message PluginManifest {
+  // パッケージ設定。
+  PackageConfig package_config = 1;
+  // プラグインが公開する関数一覧。
+  repeated FunctionDefinition functions = 2;
+}

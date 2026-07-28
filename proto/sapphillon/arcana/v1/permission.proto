@@ -1,0 +1,37 @@
+// Copyright 2025 Yuta Takahashi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package sapphillon.arcana.v1;
+
+// ============================================================
+// 権限関連
+// ============================================================
+
+// 関数実行に付与される個別の権限エントリ。
+message Permission {
+  // 権限の種別。
+  string kind = 1; // read | write | net | run | env | sys | ffi (Deno準拠)
+  // kind に応じた対象。
+  string target = 2; // kind に応じた target (パス / host / コマンド / 変数名 / API kind / "*")
+}
+
+// 関数ごとの権限セット。マニフェスト整合性チェックで使用される。
+message FunctionPermissionMeta {
+  // 権限を付与する対象の関数名。
+  string function_name = 1;
+  // この関数に付与される権限一覧。
+  repeated Permission permissions = 2;
+}
