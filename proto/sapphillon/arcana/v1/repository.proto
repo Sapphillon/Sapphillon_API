@@ -16,7 +16,9 @@ syntax = "proto3";
 
 package sapphillon.arcana.v1;
 
+import "google/protobuf/timestamp.proto";
 import "sapphillon/arcana/v1/permission.proto";
+import "sapphillon/v1/semver.proto";
 
 // Defines the TUF-style repository index schema for the Arcana plugin registry.
 // Per-version package metadata lives in TargetCustom (the developer-signed
@@ -37,7 +39,7 @@ import "sapphillon/arcana/v1/permission.proto";
 // Fields:
 // - package_id: The stable unique identifier of the package.
 // - package_name: The human-friendly display name of the package.
-// - version: The SemVer version string of this target.
+// - version: The SemVer version of this target, broken into structured components.
 // - description: A short summary of the package's purpose.
 // - author_github_id: The GitHub username of the representative author.
 // - download_url: The external download URL for `package.js`.
@@ -52,7 +54,7 @@ import "sapphillon/arcana/v1/permission.proto";
 //   TargetCustom {
 //     package_id: "my-plugin"
 //     package_name: "My Plugin"
-//     version: "1.0.0"
+//     version: { major: 1, minor: 0, patch: 0 }
 //     download_url: "https://registry.example.com/packages/my-plugin/1.0.0/package.js"
 //     function_permissions: [{ function_name: "sendNotification", permissions: [{ kind: "net", target: "*" }] }]
 //   }
@@ -68,11 +70,13 @@ message TargetCustom {
   // Example: "My Plugin".
   string package_name = 2;
 
-  // The semantic version of this target.
-  // Format: Semantic Versioning "MAJOR.MINOR.PATCH" (e.g., "1.0.0", "2.1.3-beta.1").
-  // Behavior: Together with `package_id`, the (package_id, version) pair is
-  // immutable once published; re-publishing the same pair is prohibited.
-  string version = 3;
+  // The structured semantic version of this target.
+  // Behavior: Encoded as a structured SemanticVersion (https://semver.org) instead
+  // of a free-form string so consumers can compare versions programmatically.
+  // Together with `package_id`, the (package_id, version) pair is immutable once
+  // published; re-publishing the same pair is prohibited.
+  // Example: { major: 1, minor: 0, patch: 0 } for "1.0.0".
+  sapphillon.v1.SemanticVersion version = 3;
 
   // A short summary of the package's purpose and capabilities.
   string description = 4;
@@ -170,7 +174,7 @@ message RepoOverrideIndex {
 //     yanked: true
 //     yank_reason: "Remote code execution vulnerability"
 //     advisory_url: "https://github.com/user/my-plugin/security/advisories/GHSA-xxxx"
-//     updated_at: "2025-01-31T12:00:00Z"
+//     updated_at: { seconds: 1738324800 }
 //   }
 // ```
 message PackageOverride {
@@ -209,6 +213,8 @@ message PackageOverride {
   string advisory_url = 7;
 
   // When this override was last updated.
-  // Format: RFC 3339 timestamp (e.g., "2025-01-31T12:00:00Z").
-  string updated_at = 8;
+  // Behavior: Encoded as a well-typed google.protobuf.Timestamp rather than an
+  // RFC 3339 string, so consumers do not need to re-parse the timestamp text.
+  // Example: { seconds: 1738324800, nanos: 0 } for "2025-01-31T12:00:00Z".
+  google.protobuf.Timestamp updated_at = 8;
 }
